@@ -1,0 +1,39 @@
+doctype html
+html
+	head
+		title= title
+		meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+		link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
+		style.
+			body {
+				background-color:#eee;
+			}
+			.v-container-custom {
+				border:20px solid rgba(0,0,0,.5);
+				width: 400px;
+				height: 200px;
+				background: #353b48;
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				margin-top: -140px;
+				margin-left: -240px;
+				text-align: center;
+				padding:40px;
+				display: table;
+				color:#fff;
+			}
+			.v-box {
+				background:orange;
+				display: table-cell;
+				text-align: center;
+				vertical-align: middle;
+				border:50px solid #ccc;
+			}
+	body
+		include includes/navbar.pug
+		div.container-fluid
+			block content
+		script(src="/jquery/dist/jquery.min.js", type='text/javascript')
+		script(src="/jquery/dist/jquery.slim.min.js", type='text/javascript')
+		script(src="/bootstrap/dist/js/bootstrap.min.js", type='text/javascript')
