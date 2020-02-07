@@ -8,31 +8,35 @@ var app = require('../app');
 var debug = require('debug')('node-learning:server');
 var http = require('http');
 
+if(process.env.NODE_APP_KEY == '') {
+    console.log("================= WARNING!!! =================")
+    console.log("[1] Please run this command : node app_key.js\n[2] Copy your app key to env file NODE_APP_KEY");
+    console.log("\n");
+    return;
+}
+
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.NODE_APP_PORT || '3000');
 app.set('port', port);
 
 /**
- * Create HTTP server.
- */
-
+* Create HTTP server.
+*/
 var server = http.createServer(app);
 
 /**
- * Listen on provided port, on all network interfaces.
- */
-
+* Listen on provided port, on all network interfaces.
+*/
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
 /**
- * Normalize a port into a number, string, or false.
- */
-
+* Normalize a port into a number, string, or false.
+*/
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
@@ -67,11 +71,11 @@ function onError(error) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
       process.exit(1);
-      break;
+    break;
     case 'EADDRINUSE':
       console.error(bind + ' is already in use');
       process.exit(1);
-      break;
+    break;
     default:
       throw error;
   }
