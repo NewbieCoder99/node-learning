@@ -1,0 +1,22 @@
+extends layout
+
+block content
+	div(style="padding:50px;")
+	div.row
+		div.col-md-4.offset-md-4
+			form.login-form
+				center
+					b
+						h4 Login User
+				hr
+				div.form-group
+					label(for="email") Email
+					input.form-control#email(type="email" placeholder="Email" name="email")
+				div.form-group
+					label(for="password") Password
+					input.form-control#password(type="password" placeholder="Password" name="password")
+				div.form-group
+					button.btn.btn-primary.btn-block Login
+					br
+					center
+						a.text-muted(href=`${process.env.NODE_APP_URL}`) Back To Home
