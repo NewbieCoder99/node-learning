@@ -4,7 +4,7 @@ block content
 	div(style="padding:50px;")
 	div.row
 		div.col-md-4.offset-md-4
-			form.login-form
+			form.login-form(action=`${process.env.NODE_APP_URL}/login`)
 				center
 					b
 						h4 Login User
@@ -16,7 +16,24 @@ block content
 					label(for="password") Password
 					input.form-control#password(type="password" placeholder="Password" name="password")
 				div.form-group
-					button.btn.btn-primary.btn-block Login
+					button.btn.btn-primary.btn-block#login-button(type="button" onclick="login()") Login
 					br
 					center
 						a.text-muted(href=`${process.env.NODE_APP_URL}`) Back To Home
+block scripts
+	script.
+		function login() {
+			var loginButton = jQuery('#login-button');
+			jQuery.ajax({
+				url : "#{process.env.NODE_APP_URL}/login",
+				method : 'post',
+				data : jQuery('.login-form').serialize(),
+				beforeSend : function() {
+					loginButton.attr('disabled','disabled');
+				},
+				success : function(response) {
+					loginButton.removeAttr('disabled');
+					console.log(response);
+				}
+			});
+		}
