@@ -1,5 +1,8 @@
 extends layout
 
+block stylesheets
+	//- Todo
+
 block content
 	div(style="padding:50px;")
 	div.row
@@ -12,9 +15,11 @@ block content
 				div.form-group
 					label(for="email") Email
 					input.form-control#email(type="email" placeholder="Email" name="email")
+					div.invalid-feedback#emailFeedback
 				div.form-group
 					label(for="password") Password
 					input.form-control#password(type="password" placeholder="Password" name="password")
+					div.invalid-feedback#passwordFeedback
 				div.form-group
 					button.btn.btn-primary.btn-block#login-button(type="button" onclick="login()") Login
 					br
@@ -22,18 +27,67 @@ block content
 						a.text-muted(href=`${process.env.NODE_APP_URL}`) Back To Home
 block scripts
 	script.
+
+		var _url = '#{process.env.NODE_APP_URL}';
+
 		function login() {
-			var loginButton = jQuery('#login-button');
+
+			var loginButton = jQuery('#login-button'),
+				email = jQuery('#email'),
+				password = jQuery('#password'),
+				emailFeedback = jQuery('#emailFeedback'),
+				passwordFeedback = jQuery('#passwordFeedback');
+
 			jQuery.ajax({
-				url : "#{process.env.NODE_APP_URL}/login",
+				url : _url + '/auth',
 				method : 'post',
+				dataType : 'json',
 				data : jQuery('.login-form').serialize(),
 				beforeSend : function() {
+					email.attr('class','form-control');
+					password.attr('class','form-control');
+					emailFeedback.html(``);
+					passwordFeedback.html(``);
 					loginButton.attr('disabled','disabled');
 				},
 				success : function(response) {
+
 					loginButton.removeAttr('disabled');
-					console.log(response);
+
+					nativeToast({
+						message: response.message,
+						position: 'top',
+					});
+
+					if(!response.error) {
+						setTimeout(function() {
+							location.href = _url + '/user';
+						}, 1000);
+						return;
+					}
+
+				},
+				error : function(err) {
+
+					nativeToast({
+						message: 'Error the fields.',
+						position: 'top',
+					});
+
+					loginButton.removeAttr('disabled');
+
+					var jsonMessage = err.responseJSON.message;
+
+					if(jsonMessage.email != undefined) {
+						email.attr('class','form-control is-invalid');
+						emailFeedback.html(jsonMessage.email.msg);
+					}
+
+					if(jsonMessage.password != undefined) {
+						password.attr('class','form-control is-invalid');
+						passwordFeedback.html(jsonMessage.password.msg);
+					}
+
 				}
 			});
 		}
