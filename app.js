@@ -26,6 +26,10 @@ app.use(expressSession({
 	saveUninitialized: false,
 	resave : false
 }))
+app.use(function (req, res, next) {
+	res.locals.route = routePrefix
+	next()
+})
 
 /*
 * Authenticated Routes

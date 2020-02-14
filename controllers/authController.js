@@ -1,5 +1,7 @@
 const 	crypto 	= require('crypto'),
 		model 	= require('../models'),
+		routes = require('../routes/routes'),
+		routePrefix = routes(),
 		{ validationResult } = require('express-validator');
 
 exports.index = function(req, res, next) {
@@ -57,5 +59,5 @@ exports.logout = function(req, res, next) {
 		});
 	}
 
-	return res.redirect("/");
+	return res.redirect(routePrefix.auth.login);
 }

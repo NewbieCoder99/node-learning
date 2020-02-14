@@ -5,9 +5,9 @@ header.navbar.navbar-expand-lg.navbar-dark.bg-primary
 	#navbarSupportedContent.collapse.navbar-collapse
 		ul.navbar-nav.mr-auto
 			li.nav-item.active
-				a.nav-link(href=`${ process.env.NODE_APP_URL }/user`)
+				a.nav-link(href=`${ process.env.NODE_APP_URL + route.dashboards.users.index }`)
 					| Home
 					span.sr-only (current)
 		ul.nav.navbar-nav.navbar-right
 			li.nav-item.active
-				a.nav-link(href=`${ process.env.NODE_APP_URL }/auth/logout`) Logout
+				a.nav-link(href=`${ process.env.NODE_APP_URL + route.auth.logout }`) Logout
