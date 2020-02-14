@@ -4,6 +4,12 @@ const routes = require('../routes/routes'),
 module.exports = function(authenticatedRoutes) {
 	return function (req, res, next) {
 
+		if(req.originalUrl == routePrefix.auth.login) {
+			if(req.session.userdata) {
+				return res.redirect(routePrefix.dashboards.users.index);
+			}
+		}
+
 		if(authenticatedRoutes.indexOf(req.originalUrl) >= 0) {
 			if(req.session.userdata == undefined || req.session.userdata == '') {
 				if(req.xhr == true) {

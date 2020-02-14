@@ -7,11 +7,42 @@ html
 
 		link(rel='stylesheet', href='/bootstrap/dist/css/bootstrap.min.css')
 		link(rel='stylesheet', href='/stylesheets/toastr.css')
+		link(href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet", integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", crossorigin="anonymous")
 
 		style.
 			body {
 				background-color:#eee;
 			}
+
+			.x-pointer {
+				cursor:pointer;
+			}
+
+			.menu {
+				background-color: #fff;
+				-webkit-transition: .2s all;
+				-webkit-transition-delay: .2s;
+				-moz-transition: .2s all;
+				-moz-transition-delay: .2s;
+				-ms-transition: .2s all;
+				-ms-transition-delay: .2s;
+				-o-transition: .2s all;  
+				-o-transition-delay: .2s;
+				transition: .2s all;
+				transition-delay: .2s;
+				color : #2d3436;
+			}
+
+			.menu:hover {
+				border-bottom: 2px solid #0984e3;
+				color : #0984e3;
+				-webkit-transition-delay: 0s;
+				-moz-transition-delay: 0s;
+				-ms-transition-delay: 0s;
+				-o-transition-delay: 0s;
+				transition-delay: 0s;
+			}
+
 		block stylesheets
 	body
 		include includes/navbar
