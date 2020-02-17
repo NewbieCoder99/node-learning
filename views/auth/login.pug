@@ -61,7 +61,7 @@ block scripts
 
 					if(!response.error) {
 						setTimeout(function() {
-							location.href = _url + '/user';
+							location.href = _url + '#{route.dashboards.index}';
 						}, 1000);
 						return;
 					}

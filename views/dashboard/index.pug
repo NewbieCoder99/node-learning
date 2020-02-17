@@ -1,0 +1,20 @@
+extends layout
+
+block stylesheets
+	//- Todo
+
+block content
+	div.row
+
+		div.col-md-3
+			a(href=`${route.dashboards.pages.user.index}`)
+				.card.x-pointer.menu
+					.card-body
+						center
+							i.fa.fa-user-circle-o.fa-5(style="font-size:5em;")
+							p
+							h3
+								b USERS
+
+block scripts
+	script.

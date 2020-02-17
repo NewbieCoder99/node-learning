@@ -6,7 +6,7 @@ module.exports = function(authenticatedRoutes) {
 
 		if(req.originalUrl == routePrefix.auth.login) {
 			if(req.session.userdata) {
-				return res.redirect(routePrefix.dashboards.users.index);
+				return res.redirect(routePrefix.dashboards.index);
 			}
 		}
 

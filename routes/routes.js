@@ -1,4 +1,7 @@
+const dashboardPrefix = '/dashboards';
+
 module.exports = function() {
+
 	return {
 		index : '/',
 		auth : {
@@ -6,8 +9,11 @@ module.exports = function() {
 			logout : '/auth/logout'
 		},
 		dashboards : {
-			users : {
-				index : '/user',
+			index : dashboardPrefix,
+			pages : {
+				user : {
+					index : dashboardPrefix + '/page/users'
+				}
 			}
 		}
 	};

@@ -3,7 +3,8 @@
 const 	express = require('express'),
 		router = express.Router(),
 		authController = require('../controllers/authController'),
-		userController = require('../controllers/userController'),
+		dashboardController = require('../controllers/dashboard/dashboardController'),
+		userController = require('../controllers/dashboard/userController'),
 		{ check } = require('express-validator'),
 		routes = require('../routes/routes'),
 		routePrefix = routes()
@@ -29,8 +30,16 @@ router
   	.get(routePrefix.auth.logout, authController.logout)
 
 	/*
-	* User Dashboard Routes
+	* Dashboard Routes
+	* ===============================================
 	*/
-	.get(routePrefix.dashboards.users.index, userController.index)
+	.get(routePrefix.dashboards.index, dashboardController.index)
+
+	/*
+	* Dashboard Routes
+	* ===============================================
+	* Page Name : users
+	*/
+	.get(routePrefix.dashboards.pages.user.index, userController.index)
 
 module.exports = router;

@@ -27,7 +27,11 @@ app.use(expressSession({
 	resave : false
 }))
 app.use(function (req, res, next) {
+	res.locals.auth = function() {
+		return JSON.parse(req.session.userdata)
+	}
 	res.locals.route = routePrefix
+	res.locals._title = process.env.NODE_APP_NAME
 	next()
 })
 
@@ -35,7 +39,8 @@ app.use(function (req, res, next) {
 * Authenticated Routes
 */
 const authenticatedRoutes = [
-	routePrefix.dashboards.users.index
+	routePrefix.dashboards.index,
+	routePrefix.dashboards.pages.user.index
 ];
 app.use(authenticatedMiddleware(authenticatedRoutes))
 app.use('/', webRouter)

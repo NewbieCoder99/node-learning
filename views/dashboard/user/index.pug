@@ -1,0 +1,47 @@
+extends ../layout
+
+block stylesheets
+	link(rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css")
+
+block content
+
+	.row
+		.col-md-12
+			.card
+				.card-body
+					table.table.table-condensed#DataTable
+						thead
+							tr
+								th.text-center Username
+								th.text-center Email
+						tbody
+
+block scripts
+	script(type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js")
+	script.
+		function users() {
+			jQuery('#DataTable').DataTable({
+				ordering : false,
+				processing : false,
+				serverSide : true,
+				buttons : [
+				],
+				columns : [
+					{
+						data : 'username',
+						name : 'username',
+						className : 'text-center'
+					},
+					{
+						data : 'email',
+						name : 'email',
+						className : 'text-center'
+					}
+				],
+				ajax : {
+					url : '#{route.dashboards.pages.user.index}'
+				}
+			});
+		}
+
+		users();
