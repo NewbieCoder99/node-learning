@@ -40,7 +40,11 @@ app.use(function (req, res, next) {
 */
 const authenticatedRoutes = [
 	routePrefix.dashboards.index,
-	routePrefix.dashboards.pages.user.index
+	routePrefix.dashboards.pages.user.index,
+	routePrefix.dashboards.pages.user.create,
+	routePrefix.dashboards.pages.user.store,
+	routePrefix.dashboards.pages.user.update,
+	routePrefix.dashboards.pages.user.edit,
 ];
 app.use(authenticatedMiddleware(authenticatedRoutes))
 app.use('/', webRouter)

@@ -41,5 +41,19 @@ router
 	* Page Name : users
 	*/
 	.get(routePrefix.dashboards.pages.user.index, userController.index)
+	.get(routePrefix.dashboards.pages.user.create, userController.create)
+	.post(routePrefix.dashboards.pages.user.store, [
+		check('username','The username is required.').not().isEmpty(),
+		check('email','The email is required.').not().isEmpty(),
+		check('email','Invalid email format.').isEmail(),
+		check('password', 'Password is required.').not().isEmpty(),
+	], userController.store)
+	.get(routePrefix.dashboards.pages.user.edit + '/:id', userController.edit)
+	.put(routePrefix.dashboards.pages.user.update + '/:id', [
+		check('username','The username is required.').not().isEmpty(),
+		check('email','The email is required.').not().isEmpty(),
+		check('email','Invalid email format.').isEmail(),
+	], userController.update)
+	.get(routePrefix.dashboards.pages.user.destroy + '/:id', userController.destroy)
 
 module.exports = router;

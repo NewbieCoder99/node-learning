@@ -9,11 +9,15 @@ block content
 		.col-md-12
 			.card
 				.card-body
+					a.btn.btn-primary(href=`${ route.dashboards.pages.user.create }`) Create
+					br
+					br
 					table.table.table-condensed#DataTable
 						thead
 							tr
 								th.text-center Username
 								th.text-center Email
+								th.text-center
 						tbody
 
 block scripts
@@ -24,8 +28,7 @@ block scripts
 				ordering : false,
 				processing : false,
 				serverSide : true,
-				buttons : [
-				],
+				buttons : [],
 				columns : [
 					{
 						data : 'username',
@@ -35,6 +38,16 @@ block scripts
 					{
 						data : 'email',
 						name : 'email',
+						className : 'text-center'
+					},
+					{
+						data : function(data) {
+							return `
+								<a href="#{route.dashboards.pages.user.edit}/${data.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+								<a href="#{route.dashboards.pages.user.destroy}/${data.id}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+							`;
+						},
+						name : 'action',
 						className : 'text-center'
 					}
 				],

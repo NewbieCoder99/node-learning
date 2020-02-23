@@ -1,0 +1,92 @@
+extends ../layout
+
+block stylesheets
+	//- Todo
+block content
+
+	.row
+		.col-md-12
+			.card
+				.card-body
+					form.userForm
+						input(type="hidden" name="redirect" value=`${route.dashboards.pages.user.index}`)
+						.form-group.row
+							label.col-sm-2.col-form-label(for="username") Username
+							.col-sm-10
+								input(type="text" class="form-control" id="username" name="username" value=`${data.username}`)
+								<div class="invalid-feedback" id="username-feedback"></div>
+						.form-group.row
+							label.col-sm-2.col-form-label(for="email") Email
+							.col-sm-10
+								input(type="email" class="form-control" id="email" name="email" value=`${data.email}`)
+						.form-group.row
+							label.col-sm-2.col-form-label(for="password") Password
+							.col-sm-10
+								input(type="password" class="form-control" id="password" name="password")
+						.row
+							.col-sm-12
+								a.btn.btn-primary(href=`${ route.dashboards.pages.user.index }`) Back
+								.
+									&nbsp;
+								button.btn.btn-primary(onclick="createUser()" type="button") Save
+block scripts
+	script.
+		function createUser() {
+
+			var usernameInput = jQuery('#username'),
+				usernameFeedback = jQuery('#username-feedback');
+
+			var emailInput = jQuery('#email'),
+				emailFeedback = jQuery('#email-feedback');
+
+			var passwordInput = jQuery('#password'),
+				passwordFeedback = jQuery('#password-feedback');
+
+			jQuery.ajax({
+				url : '#{route.dashboards.pages.user.update}/#{id}',
+				dataType : 'json',
+				method : 'put',
+				data : jQuery('.userForm').serialize(),
+				beforeSend : function() {
+					usernameInput.attr('class','form-control');
+					usernameFeedback.html(``);
+
+					emailInput.attr('class','form-control');
+					emailFeedback.html(``);
+
+					passwordInput.attr('class','form-control');
+					passwordFeedback.html(``);
+				},
+				success : function(response) {
+					nativeToast({
+						message: response.message,
+						position: 'top',
+					});
+				},
+				error : function(error) {
+
+					nativeToast({
+						message: 'Error the fields.',
+						position: 'top',
+					});
+
+					var jsonMessage = error.responseJSON.message;
+
+					if(jsonMessage.username != undefined) {
+						usernameInput.attr('class','form-control is-invalid');
+						usernameFeedback.html(jsonMessage.username.msg);
+					}
+
+					if(jsonMessage.email != undefined) {
+						emailInput.attr('class','form-control is-invalid');
+						emailFeedback.html(jsonMessage.email.msg);
+					}
+
+					if(jsonMessage.password != undefined) {
+						passwordInput.attr('class','form-control is-invalid');
+						passwordFeedback.html(jsonMessage.password.msg);
+					}
+
+				}
+			})
+		}
