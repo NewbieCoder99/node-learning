@@ -8,6 +8,10 @@ header.navbar.navbar-expand-lg.navbar-dark.bg-primary
 				a.nav-link(href=`${ process.env.NODE_APP_URL + route.dashboards.index }`)
 					| Home
 					span.sr-only (current)
+			li.nav-item.active
+				a.nav-link(href=`${ process.env.NODE_APP_URL + route.dashboards.index }`)
+					| Upload
+					span.sr-only (current)
 		ul.nav.navbar-nav.navbar-right
 			li.nav-item.active
 				a.nav-link(href=`${ process.env.NODE_APP_URL + route.auth.logout }`) Logout
